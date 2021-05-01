@@ -1,0 +1,14 @@
+D:\sulis szar\2020-2021\Komplex Programozás\Projekt6 - Monitor\HardwareSoftwareMonitor\HardwareSoftwareMonitor\bin\Debug\HardwareSoftwareMonitor.exe.config
+D:\sulis szar\2020-2021\Komplex Programozás\Projekt6 - Monitor\HardwareSoftwareMonitor\HardwareSoftwareMonitor\bin\Debug\HardwareSoftwareMonitor.exe
+D:\sulis szar\2020-2021\Komplex Programozás\Projekt6 - Monitor\HardwareSoftwareMonitor\HardwareSoftwareMonitor\bin\Debug\HardwareSoftwareMonitor.pdb
+D:\sulis szar\2020-2021\Komplex Programozás\Projekt6 - Monitor\HardwareSoftwareMonitor\HardwareSoftwareMonitor\obj\Debug\HardwareSoftwareMonitor.csprojAssemblyReference.cache
+D:\sulis szar\2020-2021\Komplex Programozás\Projekt6 - Monitor\HardwareSoftwareMonitor\HardwareSoftwareMonitor\obj\Debug\MainWindow.g.cs
+D:\sulis szar\2020-2021\Komplex Programozás\Projekt6 - Monitor\HardwareSoftwareMonitor\HardwareSoftwareMonitor\obj\Debug\App.g.cs
+D:\sulis szar\2020-2021\Komplex Programozás\Projekt6 - Monitor\HardwareSoftwareMonitor\HardwareSoftwareMonitor\obj\Debug\HardwareSoftwareMonitor_MarkupCompile.cache
+D:\sulis szar\2020-2021\Komplex Programozás\Projekt6 - Monitor\HardwareSoftwareMonitor\HardwareSoftwareMonitor\obj\Debug\HardwareSoftwareMonitor_MarkupCompile.lref
+D:\sulis szar\2020-2021\Komplex Programozás\Projekt6 - Monitor\HardwareSoftwareMonitor\HardwareSoftwareMonitor\obj\Debug\MainWindow.baml
+D:\sulis szar\2020-2021\Komplex Programozás\Projekt6 - Monitor\HardwareSoftwareMonitor\HardwareSoftwareMonitor\obj\Debug\HardwareSoftwareMonitor.g.resources
+D:\sulis szar\2020-2021\Komplex Programozás\Projekt6 - Monitor\HardwareSoftwareMonitor\HardwareSoftwareMonitor\obj\Debug\HardwareSoftwareMonitor.Properties.Resources.resources
+D:\sulis szar\2020-2021\Komplex Programozás\Projekt6 - Monitor\HardwareSoftwareMonitor\HardwareSoftwareMonitor\obj\Debug\HardwareSoftwareMonitor.csproj.GenerateResource.cache
+D:\sulis szar\2020-2021\Komplex Programozás\Projekt6 - Monitor\HardwareSoftwareMonitor\HardwareSoftwareMonitor\obj\Debug\HardwareSoftwareMonitor.exe
+D:\sulis szar\2020-2021\Komplex Programozás\Projekt6 - Monitor\HardwareSoftwareMonitor\HardwareSoftwareMonitor\obj\Debug\HardwareSoftwareMonitor.pdb

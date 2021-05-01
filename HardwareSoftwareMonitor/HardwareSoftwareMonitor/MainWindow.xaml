@@ -1,0 +1,72 @@
+﻿<Window x:Name="mainwindow" x:Class="HardwareSoftwareMonitor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HardwareSoftwareMonitor"
+        mc:Ignorable="d"
+        Title="Hardware-software monitor" Height="450" Width="800">
+    <Grid>
+        <TabControl HorizontalAlignment="Left" Height="399" Margin="10,10,0,0" VerticalAlignment="Top" Width="772">
+            <TabItem Header="CPU infó">
+                <Grid Background="#FFE5E5E5">
+                    <Label Content="Név" HorizontalAlignment="Left" Margin="10,8,0,0" VerticalAlignment="Top" Width="148"/>
+                    <Label x:Name="cpunev" Content="" HorizontalAlignment="Left" Margin="163,8,0,0" VerticalAlignment="Top" Width="328"/>
+                    <Label Content="ID" HorizontalAlignment="Left" Margin="10,39,0,0" VerticalAlignment="Top" Width="148"/>
+                    <Label x:Name="cpuid" Content="" HorizontalAlignment="Left" Margin="163,39,0,0" VerticalAlignment="Top" Width="328"/>
+                    <Label Content="Gyártó" HorizontalAlignment="Left" Margin="10,70,0,0" VerticalAlignment="Top" Width="148"/>
+                    <Label x:Name="cpugyarto" Content="" HorizontalAlignment="Left" Margin="163,70,0,0" VerticalAlignment="Top" Width="328"/>
+                    <Label Content="Órajel-sebesség" HorizontalAlignment="Left" Margin="10,96,0,0" VerticalAlignment="Top" Width="148"/>
+                    <Label x:Name="cpuseb" Content="" HorizontalAlignment="Left" Margin="163,96,0,0" VerticalAlignment="Top" Width="328"/>
+                    <Label Content="Leírás" HorizontalAlignment="Left" Margin="10,122,0,0" VerticalAlignment="Top" Width="148"/>
+                    <Label x:Name="cpuleir" Content="" HorizontalAlignment="Left" Margin="163,122,0,0" VerticalAlignment="Top" Width="328"/>
+                    <Label Content="Magok száma" HorizontalAlignment="Left" Margin="10,148,0,0" VerticalAlignment="Top" Width="148"/>
+                    <Label x:Name="cpucores" Content="" HorizontalAlignment="Left" Margin="163,148,0,0" VerticalAlignment="Top" Width="328"/>
+                    <Label Content="Architektúra" HorizontalAlignment="Left" Margin="10,172,0,0" VerticalAlignment="Top" Width="148"/>
+                    <Label x:Name="cpuarch" Content="" HorizontalAlignment="Left" Margin="163,172,0,0" VerticalAlignment="Top" Width="328"/>
+                    <Label Content="Család" HorizontalAlignment="Left" Margin="10,198,0,0" VerticalAlignment="Top" Width="148" FontSize="11"/>
+                    <Label x:Name="cpufamily" Content="" HorizontalAlignment="Left" Margin="163,198,0,0" VerticalAlignment="Top" Width="328"/>
+                    <Label Content="Processzor típusa" HorizontalAlignment="Left" Margin="10,224,0,0" VerticalAlignment="Top" Width="148"/>
+                    <Label x:Name="cputype" Content="" HorizontalAlignment="Left" Margin="163,224,0,0" VerticalAlignment="Top" Width="328"/>
+                    <Label Content="Processzor hőmérséklete" HorizontalAlignment="Left" Margin="10,255,0,0" VerticalAlignment="Top" Width="148"/>
+                    <Label x:Name="cputemperature" Content="" HorizontalAlignment="Left" Margin="163,255,0,0" VerticalAlignment="Top" Width="416"/>
+                    <Label x:Name="instancename" Content="" HorizontalAlignment="Left" Margin="163,286,0,0" VerticalAlignment="Top" Width="416"/>
+                    <Button x:Name="homeres" Content="Hőmérséklet megmérése" HorizontalAlignment="Left" Margin="10,292,0,0" VerticalAlignment="Top" Width="148" Click="homeres_Click"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="GPU infó" Margin="-2,-2,-2,2">
+                <Grid Background="#FFE5E5E5">
+                    <Label Content="Név" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="148"/>
+                    <Label x:Name="gpunev" Content="" HorizontalAlignment="Left" Margin="163,10,0,0" VerticalAlignment="Top" Width="328"/>
+                    <Label Content="Állapot" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Width="148"/>
+                    <Label x:Name="gpuallapot" Content="" HorizontalAlignment="Left" Margin="163,41,0,0" VerticalAlignment="Top" Width="328"/>
+                    <Label Content="ID" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top" Width="148"/>
+                    <Label x:Name="gpuid" Content="" HorizontalAlignment="Left" Margin="163,72,0,0" VerticalAlignment="Top" Width="328"/>
+                    <Label Content="Videó-RAM" HorizontalAlignment="Left" Margin="10,98,0,0" VerticalAlignment="Top" Width="148"/>
+                    <Label x:Name="gpuram" Content="" HorizontalAlignment="Left" Margin="163,98,0,0" VerticalAlignment="Top" Width="328"/>
+                    <Label Content="DAC-típus" HorizontalAlignment="Left" Margin="10,124,0,0" VerticalAlignment="Top" Width="148"/>
+                    <Label x:Name="gpudac" Content="" HorizontalAlignment="Left" Margin="163,124,0,0" VerticalAlignment="Top" Width="328"/>
+                    <Label Content="Monokróm?" HorizontalAlignment="Left" Margin="10,150,0,0" VerticalAlignment="Top" Width="148"/>
+                    <Label x:Name="gpumono" Content="" HorizontalAlignment="Left" Margin="163,150,0,0" VerticalAlignment="Top" Width="328"/>
+                    <Label Content="Telepített driverek" HorizontalAlignment="Left" Margin="10,290,0,0" VerticalAlignment="Top" Width="148"/>
+                    <Label Content="Driver verzió" HorizontalAlignment="Left" Margin="10,181,0,0" VerticalAlignment="Top" Width="148"/>
+                    <Label x:Name="gpudriverversion" Content="" HorizontalAlignment="Left" Margin="163,181,0,0" VerticalAlignment="Top" Width="328"/>
+                    <Label Content="Videó-processzor" HorizontalAlignment="Left" Margin="10,207,0,0" VerticalAlignment="Top" Width="148"/>
+                    <Label x:Name="gpuprocessor" Content="" HorizontalAlignment="Left" Margin="163,207,0,0" VerticalAlignment="Top" Width="328"/>
+                    <Label Content="Architektúra" HorizontalAlignment="Left" Margin="10,233,0,0" VerticalAlignment="Top" Width="148"/>
+                    <Label x:Name="gpuarch" Content="" HorizontalAlignment="Left" Margin="163,233,0,0" VerticalAlignment="Top" Width="328"/>
+                    <Label Content="Memória-típus" HorizontalAlignment="Left" Margin="10,259,0,0" VerticalAlignment="Top" Width="148"/>
+                    <Label x:Name="gpumemtype" Content="" HorizontalAlignment="Left" Margin="163,259,0,0" VerticalAlignment="Top" Width="328"/>
+                    <ListBox x:Name="driverslist" HorizontalAlignment="Left" Height="78" Margin="163,285,0,0" VerticalAlignment="Top" Width="593"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Meghajtó infó" Margin="-2,-2,-2,2">
+                <Grid Background="#FFE5E5E5">
+                    <TextBox x:Name="meghajtoinfo" HorizontalAlignment="Left" Height="351" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="456" IsReadOnly="True" Text="Az összes adat eléréséhez lehet, hogy görgetni kell a mezőben."/>
+                </Grid>
+            </TabItem>
+            <ListBox Height="100" Width="100"/>
+        </TabControl>
+
+    </Grid>
+</Window>
