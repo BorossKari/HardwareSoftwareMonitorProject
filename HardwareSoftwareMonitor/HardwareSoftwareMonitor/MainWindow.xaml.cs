@@ -14,6 +14,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Management;
 using System.IO;
+using System.Net.NetworkInformation;
+using System.Diagnostics;
+using System.Windows.Threading;
 
 namespace HardwareSoftwareMonitor
 {
@@ -22,8 +25,14 @@ namespace HardwareSoftwareMonitor
     /// </summary>
     public partial class MainWindow : Window
     {
+        PerformanceCounter cpukihaszn = new PerformanceCounter("Processzorinformációk", "A processzor kihasználtsága (%)", "_Total");
+        PerformanceCounter ramkihaszn = new PerformanceCounter("Memória", "Rendelkezésre álló memória (megabájt)");
+        DispatcherTimer tick = new DispatcherTimer();
         public MainWindow()
         {
+            tick.Interval = TimeSpan.FromSeconds(1);
+            tick.Tick += tick_Tick;
+            tick.Start();
             InitializeComponent();
             ManagementObjectSearcher myVideoObject = new ManagementObjectSearcher("select * from Win32_VideoController");
             string driver;
@@ -45,7 +54,6 @@ namespace HardwareSoftwareMonitor
                     driverslist.Items.Add(item);
                 }
             }
-            meghajtoinfo.AppendText("\r");
             DriveInfo[] allDrives = DriveInfo.GetDrives();
 
             foreach (DriveInfo d in allDrives)
@@ -84,6 +92,85 @@ namespace HardwareSoftwareMonitor
                 cpufamily.Content = obj["Family"];
                 cputype.Content = obj["ProcessorType"];
             }
+            NetworkInterface[] halozatikapcsolatok = NetworkInterface.GetAllNetworkInterfaces();
+
+            if (halozatikapcsolatok == null || halozatikapcsolatok.Length < 1)
+            {
+                Console.WriteLine("  Nem találtunk hálózati interface-eket.");
+            }
+            else
+            {
+                foreach (NetworkInterface adapter in halozatikapcsolatok)
+                {
+                    IPInterfaceProperties properties = adapter.GetIPProperties();
+                    halobox.AppendText(adapter.Description + "\r");
+                    halobox.AppendText("    Interface típus: ");
+                    halobox.AppendText(Convert.ToString(adapter.NetworkInterfaceType) + "\r");
+                    halobox.AppendText("    Fizikai elhelyezkedés: ");
+                    halobox.AppendText(Convert.ToString(adapter.GetPhysicalAddress().ToString()) + "\r");
+                    halobox.AppendText("    Működési állapot: ");
+                    halobox.AppendText(Convert.ToString(adapter.OperationalStatus) + "\r");
+                }
+            }
+            ManagementObjectSearcher hangeszkozok = new ManagementObjectSearcher("select * from Win32_SoundDevice");
+
+            foreach (ManagementObject obj in hangeszkozok.Get())
+            {
+                hangbox.AppendText("Név: " + obj["Name"] + "\r");
+                hangbox.AppendText("    Eszköznév: " + obj["ProductName"] + "\r");
+                hangbox.AppendText("    Eszköz ID: " + obj["DeviceID"] + "\r");
+                hangbox.AppendText("    Energiamegtakarítást támogatja: " + obj["PowerManagementSupported"] + "\r");
+                hangbox.AppendText("    Állapot: " + obj["Status"] + "\r");
+                hangbox.AppendText("    Állapot infó: " + obj["StatusInfo"] + "\r");
+            }
+            ManagementObjectSearcher nyomtatok = new ManagementObjectSearcher("select * from Win32_Printer");
+
+            foreach (ManagementObject obj in nyomtatok.Get())
+            {
+                nyomtatobox.AppendText("Név: " + obj["Name"] + "\r");
+                nyomtatobox.AppendText("    Hálózati nyomtató: " + obj["Network"] + "\r");
+                nyomtatobox.AppendText("    Alapértelmezett nyomtató: " + obj["Default"] + "\r");
+                nyomtatobox.AppendText("    Eszköz ID: " + obj["DeviceID"] + "\r");
+                nyomtatobox.AppendText("    Állapot: " + obj["Status"] + "\r");
+            }
+            ManagementObjectSearcher alaplap = new ManagementObjectSearcher("select * from Win32_MotherboardDevice");
+
+            foreach (ManagementObject obj in alaplap.Get())
+            {
+                alapnev.Content = obj["Name"];
+                alapeler.Content = obj["Availability"];
+                alapbusz1.Content = obj["PrimaryBusType"];
+                alapbusz2.Content = obj["SecondaryBusType"];
+                alapleir.Content = obj["Caption"];
+                alapid.Content = obj["DeviceID"];
+                alapall.Content = obj["Status"];
+                alapsysname.Content = obj["SystemName"];
+            }
+            ManagementObjectSearcher memoria = new ManagementObjectSearcher("select * from Win32_PhysicalMemory");
+
+            foreach (ManagementObject obj in memoria.Get())
+            {
+                memnev.Content = obj["Name"];
+                memkap.Content = Convert.ToInt64(obj["Capacity"]) / 1073741824 + " GB";
+                memtip.Content = obj["MemoryType"];
+                memseb.Content = obj["Speed"];
+                memform.Content = obj["FormFactor"];
+            }
+            /*ManagementObjectSearcher oprend = new ManagementObjectSearcher("select * from Win32_OperatingSystem");
+
+            foreach (ManagementObject obj in oprend.Get())
+            {
+                Console.WriteLine("Caption  -  " + obj["Caption"]);
+                Console.WriteLine("WindowsDirectory  -  " + obj["WindowsDirectory"]);
+                Console.WriteLine("ProductType  -  " + obj["ProductType"]);
+                Console.WriteLine("SerialNumber  -  " + obj["SerialNumber"]);
+                Console.WriteLine("SystemDirectory  -  " + obj["SystemDirectory"]);
+                Console.WriteLine("CountryCode  -  " + obj["CountryCode"]);
+                Console.WriteLine("CurrentTimeZone  -  " + obj["CurrentTimeZone"]);
+                Console.WriteLine("EncryptionLevel  -  " + obj["EncryptionLevel"]);
+                Console.WriteLine("OSType  -  " + obj["OSType"]);
+                Console.WriteLine("Version  -  " + obj["Version"]);
+            }*/
         }
         private void homeres_Click(object sender, RoutedEventArgs e)
         {
@@ -109,5 +196,15 @@ namespace HardwareSoftwareMonitor
                 instancename.Content = "Próbálja meg adminisztrátorként futtatni a programot.";
             }
         }
+        private void tick_Tick(object sender, EventArgs e)
+        {
+            procitext.Content = (int)cpukihaszn.NextValue() + " %";
+            memszaz.Content = (int)ramkihaszn.NextValue() + " MB";
+
+        }
+        /*private void Hasznaltsag_tick(object sender, EventArgs e)
+        {
+            float cpuszaz = processzorszazalek.Value();
+        }*/
     }
 }
