@@ -17,12 +17,23 @@ using System.IO;
 using System.Net.NetworkInformation;
 using System.Diagnostics;
 using System.Windows.Threading;
+using Microsoft.Win32;
 
 namespace HardwareSoftwareMonitor
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    public class ProgramAdatok
+    {
+        public string programnev { get; set; }
+        public string programverzio { get; set; }
+        public ProgramAdatok(ManagementObject obj)
+        {
+            programnev = Convert.ToString(obj["Name"]);
+            programverzio = Convert.ToString(obj["Version"]);
+        }
+    }
     public partial class MainWindow : Window
     {
         PerformanceCounter cpukihaszn = new PerformanceCounter("Processzorinformációk", "A processzor kihasználtsága (%)", "_Total");
@@ -156,28 +167,34 @@ namespace HardwareSoftwareMonitor
                 memseb.Content = obj["Speed"];
                 memform.Content = obj["FormFactor"];
             }
-            /*ManagementObjectSearcher oprend = new ManagementObjectSearcher("select * from Win32_OperatingSystem");
+            ManagementObjectSearcher oprend = new ManagementObjectSearcher("select * from Win32_OperatingSystem");
 
             foreach (ManagementObject obj in oprend.Get())
             {
-                Console.WriteLine("Caption  -  " + obj["Caption"]);
-                Console.WriteLine("WindowsDirectory  -  " + obj["WindowsDirectory"]);
-                Console.WriteLine("ProductType  -  " + obj["ProductType"]);
-                Console.WriteLine("SerialNumber  -  " + obj["SerialNumber"]);
-                Console.WriteLine("SystemDirectory  -  " + obj["SystemDirectory"]);
-                Console.WriteLine("CountryCode  -  " + obj["CountryCode"]);
-                Console.WriteLine("CurrentTimeZone  -  " + obj["CurrentTimeZone"]);
-                Console.WriteLine("EncryptionLevel  -  " + obj["EncryptionLevel"]);
-                Console.WriteLine("OSType  -  " + obj["OSType"]);
-                Console.WriteLine("Version  -  " + obj["Version"]);
-            }*/
+                oscaption.Content = obj["Caption"];
+                osdir.Content = obj["WindowsDirectory"];
+                osproducttype.Content = obj["ProductType"];
+                osserial.Content = obj["SerialNumber"];
+                ossys.Content = obj["SystemDirectory"];
+                oscode.Content = obj["CountryCode"];
+                ostime.Content = obj["CurrentTimeZone"];
+                oslevel.Content = obj["EncryptionLevel"];
+                ostype.Content = obj["OSType"];
+                osver.Content = obj["Version"];
+            }
+            ManagementObjectSearcher search = new ManagementObjectSearcher("select * from Win32_Product");
+            foreach (ManagementObject obj in search.Get())
+            {
+                ProgramGrid.Items.Add(new ProgramAdatok(obj));
+            }
+            telepitettdarab.Content = "Telepített alkalmazások száma: " + ProgramGrid.Items.Count;
         }
         private void homeres_Click(object sender, RoutedEventArgs e)
         {
             Double homerseklet = 0;
             String instanceName = "";
 
-            ManagementObjectSearcher searcher = new ManagementObjectSearcher(@"root\WMI", "SELECT * FROM MSAcpi_ThermalZoneTemperature");
+            ManagementObjectSearcher searcher = new ManagementObjectSearcher(@"root\WMI", "select * from MSAcpi_ThermalZoneTemperature");
 
             try
             {
@@ -195,16 +212,33 @@ namespace HardwareSoftwareMonitor
                 cputemperature.Content = "A rendszer megtagadta a hozzáférést ehhez az információhoz.";
                 instancename.Content = "Próbálja meg adminisztrátorként futtatni a programot.";
             }
+            
         }
-        private void tick_Tick(object sender, EventArgs e)
+    private void tick_Tick(object sender, EventArgs e)
         {
             procitext.Content = (int)cpukihaszn.NextValue() + " %";
             memszaz.Content = (int)ramkihaszn.NextValue() + " MB";
 
         }
-        /*private void Hasznaltsag_tick(object sender, EventArgs e)
+        /*public void GetInstalledApps()
         {
-            float cpuszaz = processzorszazalek.Value();
+            string uninstallKey = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
+            using (RegistryKey registrykey = Registry.LocalMachine.OpenSubKey(uninstallKey))
+            {
+                foreach (string skName in registrykey.GetSubKeyNames())
+                {
+                    using (RegistryKey sk = registrykey.OpenSubKey(skName))
+                    {
+                        try
+                        {
+                            listBox1.Items.Add(sk.GetValue("DisplayName"));
+                        }
+                        catch (Exception)
+                        { }
+                    }
+                }
+                telepitettdarab.Content = "Telepített alkalmazások listája " + listBox1.Items.Count.ToString();
+            }
         }*/
     }
 }
