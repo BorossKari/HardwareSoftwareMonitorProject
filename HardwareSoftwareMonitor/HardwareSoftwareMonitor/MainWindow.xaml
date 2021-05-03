@@ -162,6 +162,20 @@
                                 <Label x:Name="ossys" Content="" HorizontalAlignment="Left" Margin="184,62,0,0" VerticalAlignment="Top" Width="457"/>
                             </Grid>
                         </TabItem>
+                        <TabItem Header="Telepített driverek listája">
+                            <Grid Background="#FFE5E5E5">
+                                <DataGrid x:Name="DriverGrid" HorizontalAlignment="Left" Height="318" Margin="10,10,0,0" VerticalAlignment="Top" Width="749" IsReadOnly="True">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Binding="{Binding driverfriendly}" ClipboardContentBinding="{x:Null}" Header="Név"/>
+                                        <DataGridTextColumn Binding="{Binding driverhwid}" ClipboardContentBinding="{x:Null}" Header="ID"/>
+                                        <DataGridTextColumn Binding="{Binding driverdevid}" ClipboardContentBinding="{x:Null}" Header="Device ID"/>
+                                        <DataGridTextColumn Binding="{Binding drivergyarto}" ClipboardContentBinding="{x:Null}" Header="Gyártó"/>
+                                        <DataGridTextColumn Binding="{Binding driverhely}" ClipboardContentBinding="{x:Null}" Header="Helye"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                                <Label x:Name="driverdarab" Content="" HorizontalAlignment="Left" Margin="10,334,0,0" VerticalAlignment="Top" Width="749"/>
+                            </Grid>
+                        </TabItem>
                     </TabControl>
                 </Grid>
             </TabItem>

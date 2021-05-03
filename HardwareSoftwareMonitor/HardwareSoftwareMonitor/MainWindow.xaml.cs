@@ -34,6 +34,30 @@ namespace HardwareSoftwareMonitor
             programverzio = Convert.ToString(obj["Version"]);
         }
     }
+    public class DriverAdatok
+    {
+        public string driverfriendly { get; set; }
+        public string driverhwid { get; set; }
+        public string driverdevid { get; set; }
+        public string drivergyarto { get; set; }
+        public string driverhely { get; set; }
+        public DriverAdatok(ManagementObject obj)
+        {
+            try
+            {
+                driverfriendly = Convert.ToString(obj["FriendlyName"]);
+                driverhwid = Convert.ToString(obj["HardWareID"]);
+                driverdevid = Convert.ToString(obj["DeviceID"]);
+                drivergyarto = Convert.ToString(obj["Manufacturer"]);
+                driverhely = Convert.ToString(obj["Location"]);
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+
+    }
     public partial class MainWindow : Window
     {
         PerformanceCounter cpukihaszn = new PerformanceCounter("Processzorinformációk", "A processzor kihasználtsága (%)", "_Total");
@@ -182,12 +206,18 @@ namespace HardwareSoftwareMonitor
                 ostype.Content = obj["OSType"];
                 osver.Content = obj["Version"];
             }
-            ManagementObjectSearcher search = new ManagementObjectSearcher("select * from Win32_Product");
-            foreach (ManagementObject obj in search.Get())
+            ManagementObjectSearcher programkereses = new ManagementObjectSearcher("select * from Win32_Product");
+            foreach (ManagementObject obj in programkereses.Get())
             {
                 ProgramGrid.Items.Add(new ProgramAdatok(obj));
             }
             telepitettdarab.Content = "Telepített alkalmazások száma: " + ProgramGrid.Items.Count;
+            ManagementObjectSearcher driverkereses = new ManagementObjectSearcher("select * from Win32_PnPSignedDriver");
+            foreach (ManagementObject obj in driverkereses.Get())
+            {
+                DriverGrid.Items.Add(new DriverAdatok(obj));
+            }
+            driverdarab.Content = "Telepített driverek száma: " + DriverGrid.Items.Count;
         }
         private void homeres_Click(object sender, RoutedEventArgs e)
         {
@@ -214,31 +244,11 @@ namespace HardwareSoftwareMonitor
             }
             
         }
-    private void tick_Tick(object sender, EventArgs e)
+        private void tick_Tick(object sender, EventArgs e)
         {
             procitext.Content = (int)cpukihaszn.NextValue() + " %";
             memszaz.Content = (int)ramkihaszn.NextValue() + " MB";
 
         }
-        /*public void GetInstalledApps()
-        {
-            string uninstallKey = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
-            using (RegistryKey registrykey = Registry.LocalMachine.OpenSubKey(uninstallKey))
-            {
-                foreach (string skName in registrykey.GetSubKeyNames())
-                {
-                    using (RegistryKey sk = registrykey.OpenSubKey(skName))
-                    {
-                        try
-                        {
-                            listBox1.Items.Add(sk.GetValue("DisplayName"));
-                        }
-                        catch (Exception)
-                        { }
-                    }
-                }
-                telepitettdarab.Content = "Telepített alkalmazások listája " + listBox1.Items.Count.ToString();
-            }
-        }*/
     }
 }
